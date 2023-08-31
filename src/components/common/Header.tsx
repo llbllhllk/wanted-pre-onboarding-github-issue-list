@@ -25,6 +25,15 @@ const HeaderLayout = styled.header`
   align-items: center;
   height: 100px;
   border-bottom: 1px solid #d9d9d9;
+
+  @media screen and (max-width: 1023px) {
+    height: 84px;
+  }
+
+  @media screen and (max-width: 767px) {
+    font-size: 12px;
+    height: 64px;
+  }
 `;
 
 const HeaderTitle = styled.h1`
