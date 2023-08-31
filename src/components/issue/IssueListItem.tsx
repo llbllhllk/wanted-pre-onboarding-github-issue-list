@@ -71,11 +71,19 @@ const TitleContainer = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 12px;
+
+  @media screen and (max-width: 767px) {
+    font-size: 12px;
+  }
 `;
 
 const IssueNumber = styled.strong`
   color: red;
   margin-right: 20px;
+
+  @media screen and (max-width: 767px) {
+    margin-right: 12px;
+  }
 `;
 
 const IssueInfoBox = styled.div`
@@ -96,6 +104,10 @@ const IssueInfoBox = styled.div`
   & div:last-of-type {
     margin-right: 0;
   }
+
+  @media screen and (max-width: 767px) {
+    font-size: 12px;
+  }
 `;
 
 const Title = styled.h2`
@@ -112,6 +124,11 @@ const Comment = styled.span`
 
   & dd {
     margin-left: 4px;
+  }
+
+  @media screen and (max-width: 767px) {
+    font-size: 12px;
+    margin-top: 10px;
   }
 `;
 
