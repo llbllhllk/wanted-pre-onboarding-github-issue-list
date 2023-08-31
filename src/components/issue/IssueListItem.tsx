@@ -22,17 +22,17 @@ const IssueListItem = memo(({ issueNumber, title, author, date, comments }: Issu
             <IssueNumber>#{issueNumber}</IssueNumber>
             <Title>{title}</Title>
           </TitleContainer>
-          <IssueInfoBox>
-            <div>
-              <dt>작성자:</dt>
-              <dd>{author},</dd>
-            </div>
-            <div>
-              <dt>작성일:</dt>
-              <dd>{formatDate(date)}</dd>
-            </div>
-          </IssueInfoBox>
         </div>
+        <IssueInfoBox>
+          <div>
+            <dt>작성자:</dt>
+            <dd>{author},</dd>
+          </div>
+          <div>
+            <dt>작성일:</dt>
+            <dd>{formatDate(date)}</dd>
+          </div>
+        </IssueInfoBox>
         <Comment>
           <dt>코멘트:</dt>
           <dd>{comments}</dd>
@@ -71,10 +71,6 @@ const TitleContainer = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 12px;
-
-  @media screen and (max-width: 767px) {
-    font-size: 12px;
-  }
 `;
 
 const IssueNumber = styled.strong`
@@ -92,6 +88,7 @@ const IssueInfoBox = styled.div`
   & div {
     display: flex;
     margin-right: 8px;
+
     & dt {
       font-weight: 700;
     }
@@ -106,12 +103,23 @@ const IssueInfoBox = styled.div`
   }
 
   @media screen and (max-width: 767px) {
+    display: flex;
+    flex-direction: column;
     font-size: 12px;
   }
 `;
 
 const Title = styled.h2`
   margin: 0;
+
+  @media screen and (max-width: 1023px) {
+    font-size: 18px;
+  }
+
+  @media screen and (max-width: 767px) {
+    width: 150px;
+    font-size: 16px;
+  }
 `;
 
 const Comment = styled.span`
@@ -128,7 +136,6 @@ const Comment = styled.span`
 
   @media screen and (max-width: 767px) {
     font-size: 12px;
-    margin-top: 10px;
   }
 `;
 

@@ -64,7 +64,7 @@ const IssueListLayout = styled.ul`
   padding-top: 150px;
   padding-left: 0;
   height: 100vh;
-
+  margin-bottom: 10px;
   & a {
     color: #000;
     text-decoration: none;

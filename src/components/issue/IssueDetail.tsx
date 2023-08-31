@@ -51,16 +51,49 @@ export default function IssueDetail() {
 const DetailLayout = styled.div`
   padding-top: 150px;
   margin: auto;
+
+  @media screen and (max-width: 1023px) {
+    padding-top: 108px;
+    & h1 {
+      font-size: 34px;
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    padding-top: 80px;
+    & h1 {
+      font-size: 20px;
+    }
+  }
 `;
 
 const ListTitle = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
+  margin-bottom: 24px;
+
+  @media screen and (max-width: 1023px) {
+    margin-bottom: 18px;
+  }
+
+  @media screen and (max-width: 767px) {
+    margin-bottom: 12px;
+  }
 
   & li {
-    width: 1000px;
-    margin-bottom: 0;
+    min-width: 1000px;
+
+    @media screen and (max-width: 1023px) {
+      min-width: 580px;
+      margin-bottom: 18px;
+    }
+
+    @media screen and (max-width: 767px) {
+      font-size: 12px;
+      min-width: 200px;
+      padding: 16px;
+    }
 
     & a {
       color: #000;
@@ -73,4 +106,14 @@ const UserImage = styled.img`
   width: 100px;
   height: 100px;
   border-radius: 50%;
+
+  @media screen and (max-width: 1023px) {
+    width: 80px;
+    height: 80px;
+  }
+
+  @media screen and (max-width: 767px) {
+    width: 68px;
+    height: 68px;
+  }
 `;
