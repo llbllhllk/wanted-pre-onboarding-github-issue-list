@@ -69,6 +69,14 @@ const IssueListLayout = styled.ul`
     color: #000;
     text-decoration: none;
   }
+
+  @media screen and (max-width: 1023px) {
+    padding-top: 108px;
+  }
+
+  @media screen and (max-width: 767px) {
+    padding-top: 80px;
+  }
 `;
 
 export default IssueList;
