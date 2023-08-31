@@ -1,4 +1,4 @@
-import { useCallback, useLayoutEffect } from 'react';
+import { useCallback, useEffect, useLayoutEffect } from 'react';
 import styled from 'styled-components';
 import IssueListItem from './IssueListItem';
 import { useDispatch, useSelector } from 'react-redux';
@@ -12,6 +12,7 @@ const IssueList = () => {
   const issues = useSelector((state: RootState) => state.issues);
 
   const dispatch = useDispatch();
+
   const initializeIssueData = useCallback(() => {
     dispatch(
       fetchAllIssues({
@@ -22,28 +23,30 @@ const IssueList = () => {
     );
   }, [dispatch, issues]);
 
-  const onScrollEvent = useCallback(() => {
-    const { organization, repository, page } = issues;
-    window.addEventListener('scroll', () => {
-      if (
-        Math.floor(window.scrollY + document.documentElement.clientHeight) ===
-        Math.floor(document.documentElement.scrollHeight)
-      ) {
-        dispatch(
-          fetchAllIssues({
-            organization,
-            repository,
-            page: page + 1,
-          }) as any,
-        );
-      }
-    });
+  const loadMoreIssues = () => {
+    if (
+      Math.floor(window.scrollY + window.innerHeight) >=
+      Math.floor(document.documentElement.scrollHeight)
+    ) {
+      dispatch(
+        fetchAllIssues({
+          organization: issues.organization,
+          repository: issues.repository,
+          page: issues.page,
+        }) as any,
+      );
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', loadMoreIssues);
+    return () => {
+      window.removeEventListener('scroll', loadMoreIssues);
+    };
   }, [dispatch, issues]);
 
   useLayoutEffect(() => {
     initializeIssueData();
-    onScrollEvent();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
