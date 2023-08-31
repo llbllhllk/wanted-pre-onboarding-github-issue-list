@@ -2,16 +2,27 @@ import { RootState } from 'redux/store';
 import IssueListItem from './IssueListItem';
 import { useEffect } from 'react';
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { styled } from 'styled-components';
+import { fetchAllIssues } from 'redux/issues';
 
 export default function IssueDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const issue = useSelector((state: RootState) =>
-    state.issues.data.find(issue => issue.issueNumber.toString() === id),
-  );
+  const dispatch = useDispatch();
+
+  const issues = useSelector((state: RootState) => state.issues);
+
+  useEffect(() => {
+    dispatch(
+      fetchAllIssues({
+        organization: issues.organization,
+        repository: issues.repository,
+        page: issues.page,
+      }) as any,
+    );
+  }, []);
 
   useEffect(() => {
     if (isNaN(Number(id))) {
@@ -21,20 +32,24 @@ export default function IssueDetail() {
 
   return (
     <DetailLayout>
-      {issue && (
-        <>
-          <ListTitle>
-            <UserImage src={issue.userImage} alt={issue.author} />
-            <IssueListItem {...issue} />
-          </ListTitle>
-          <ReactMarkdown>{issue?.body || 'nothing'}</ReactMarkdown>
-        </>
+      {issues.data.map(
+        issue =>
+          issue.issueNumber.toString() === id && (
+            <div key={id}>
+              <ListTitle>
+                <UserImage src={issue.userImage} alt={issue.author} />
+                <IssueListItem {...issue} />
+              </ListTitle>
+              <ReactMarkdown>{issue?.body || 'nothing'}</ReactMarkdown>
+            </div>
+          ),
       )}
     </DetailLayout>
   );
 }
 
 const DetailLayout = styled.div`
+  padding-top: 150px;
   margin: auto;
 `;
 
