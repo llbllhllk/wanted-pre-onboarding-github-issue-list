@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useLayoutEffect } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import IssueListItem from './IssueListItem';
 import { useDispatch, useSelector } from 'react-redux';
@@ -10,18 +10,19 @@ import Loading from 'components/common/Loading';
 
 const IssueList = () => {
   const issues = useSelector((state: RootState) => state.issues);
-
+  const [perPage, setPerPage] = useState(1);
   const dispatch = useDispatch();
 
-  const initializeIssueData = useCallback(() => {
-    dispatch(
-      fetchAllIssues({
-        organization: issues.organization,
-        repository: issues.repository,
-        page: issues.page,
-      }) as any,
-    );
-  }, [dispatch, issues]);
+  useEffect(() => {
+    issues.data.length === 0 &&
+      dispatch(
+        fetchAllIssues({
+          organization: issues.organization,
+          repository: issues.repository,
+          page: issues.page,
+        }) as any,
+      );
+  }, []);
 
   const loadMoreIssues = () => {
     if (
@@ -32,9 +33,11 @@ const IssueList = () => {
         fetchAllIssues({
           organization: issues.organization,
           repository: issues.repository,
-          page: issues.page,
+          page: issues.page + perPage,
         }) as any,
       );
+      setPerPage(perv => perv + 1);
+      console.info(perPage);
     }
   };
 
@@ -43,11 +46,7 @@ const IssueList = () => {
     return () => {
       window.removeEventListener('scroll', loadMoreIssues);
     };
-  }, [dispatch, issues]);
-
-  useLayoutEffect(() => {
-    initializeIssueData();
-  }, []);
+  }, [perPage]);
 
   return (
     <IssueListLayout>
@@ -62,6 +61,7 @@ const IssueList = () => {
 };
 
 const IssueListLayout = styled.ul`
+  padding-top: 150px;
   padding-left: 0;
   height: 100vh;
 
