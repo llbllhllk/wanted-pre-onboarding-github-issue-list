@@ -30,6 +30,16 @@ const LoadingSpinner = styled.div`
   border-radius: 50%;
   border-top-color: blue;
   animation: ${spin} 1s linear infinite;
+
+  @media screen and (max-width: 1023px) {
+    width: 38px;
+    height: 38px;
+  }
+
+  @media screen and (max-width: 767px) {
+    width: 24px;
+    height: 24px;
+  }
 `;
 
 export default Loading;

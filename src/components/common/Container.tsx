@@ -16,7 +16,7 @@ const ConatainerLayout = styled.div`
   margin: 0 auto;
 
   @media screen and (max-width: 1023px) {
-    max-width: 768px;
+    max-width: 750px;
   }
 
   @media screen and (max-width: 767px) {
